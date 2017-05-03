@@ -29,19 +29,24 @@ namespace Projekt2
 
         WindowsMediaPlayer rainPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer windPlayer = new WindowsMediaPlayer();
+        WindowsMediaPlayer roosterPlayer = new WindowsMediaPlayer();
 
         public void Run()
         {
             timer.Tick += new EventHandler(GetWeather);
+            timer.Tick += new EventHandler(SetWeather);
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
 
-            string audioPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "rain-03.wav");
-            Debug.WriteLine(audioPath);
-            rainPlayer.URL = audioPath;
+            rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
             rainPlayer.settings.setMode("loop", true);
+            rainPlayer.settings.volume = 0;
             rainPlayer.controls.play();
-            rainPlayer.settings.volume = 10;
+
+            windPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind-1.wav");
+            windPlayer.settings.setMode("loop", true);
+            windPlayer.settings.volume = 0;
+            windPlayer.controls.play();
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
@@ -61,9 +66,18 @@ namespace Projekt2
         }
 
         //Ändrar ljudnivå på alla ljudklipp
-        public void SetWeather()
+        public void SetWeather(Object obj, EventArgs args)
         {
-            
+            rainPlayer.settings.volume = rainLevel;
+            windPlayer.settings.volume = Convert.ToInt32(windSpeed * 8);
+
+            var time = DateTime.Now;
+            if (time.Hour == 12 && time.Minute == 0 && time.Second == 0)
+            {
+                roosterPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\Rooster.wav");
+                roosterPlayer.settings.setMode("loop", false);
+                windPlayer.controls.play();
+            }
         }
 
     }
