@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,6 +30,7 @@ namespace Projekt2
         WindowsMediaPlayer rainPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer windPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer roosterPlayer = new WindowsMediaPlayer();
+        WindowsMediaPlayer lightningPlayer = new WindowsMediaPlayer();
 
         public void Run()
         {
@@ -47,6 +48,11 @@ namespace Projekt2
             windPlayer.settings.setMode("loop", true);
             windPlayer.settings.volume = 0;
             windPlayer.controls.play();
+            
+i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind-1.wav");
+            lightningPlayer.settings.setMode("loop", true);
+            lightningPlayer.settings.volume = 0;
+            lightningPlayer.controls.play();
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
@@ -77,6 +83,15 @@ namespace Projekt2
                 roosterPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\Rooster.wav");
                 roosterPlayer.settings.setMode("loop", false);
                 windPlayer.controls.play();
+            }
+            
+            if(currentWeather.weather.description == "thunderstorm")
+            {
+                ligthningPlayer.controls.volume = 0;
+            }
+            else
+            {
+                lightningPlayer.controls.volume = 50;
             }
         }
 
