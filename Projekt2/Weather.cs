@@ -15,6 +15,7 @@ using System.Net;
 using OpenWeatherMap;
 using WMPLib;
 using System.Reflection;
+using System.Speech.Synthesis;
 
 namespace Projekt2
 {
@@ -26,11 +27,14 @@ namespace Projekt2
         public double temperature; // I celsius
         public int rainLevel;
         public double windSpeed;
+        public string weatherDescription;
 
         WindowsMediaPlayer rainPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer windPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer roosterPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer lightningPlayer = new WindowsMediaPlayer();
+
+        SpeechSynthesizer synth = new SpeechSynthesizer();
 
         public void Run()
         {
@@ -38,6 +42,8 @@ namespace Projekt2
             timer.Tick += new EventHandler(SetWeather);
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
+
+            synth.SetOutputToDefaultAudioDevice();
 
             rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
             rainPlayer.settings.setMode("loop", true);
@@ -49,7 +55,7 @@ namespace Projekt2
             windPlayer.settings.volume = 0;
             windPlayer.controls.play();
             
-i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
+            lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
             lightningPlayer.settings.setMode("loop", true);
             lightningPlayer.settings.volume = 0;
             lightningPlayer.controls.play();
@@ -64,11 +70,13 @@ i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.Ge
             temperature = currentWeather.Temperature.Value - 273.15;
             rainLevel = currentWeather.Clouds.Value;
             windSpeed = currentWeather.Wind.Speed.Value;
+            weatherDescription = currentWeather.Weather.Value;
 
             label_location.Text = currentWeather.City.Name;
             label_temperature.Text = temperature.ToString();
             label_rain.Text = rainLevel.ToString();
             label_wind.Text = windSpeed.ToString();
+            label_description.Text = weatherDescription;
         }
 
         //Ändrar ljudnivå på alla ljudklipp
@@ -85,13 +93,13 @@ i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.Ge
                 windPlayer.controls.play();
             }
             
-            if(currentWeather.weather.description == "thunderstorm")
+            if(weatherDescription == "thunderstorm")
             {
-                ligthningPlayer.controls.volume = 0;
+                lightningPlayer.settings.volume = 0;
             }
             else
             {
-                lightningPlayer.controls.volume = 50;
+                lightningPlayer.settings.volume = 50;
             }
         }
 
