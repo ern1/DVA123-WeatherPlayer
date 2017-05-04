@@ -49,7 +49,7 @@ namespace Projekt2
             windPlayer.settings.volume = 0;
             windPlayer.controls.play();
             
-i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind-1.wav");
+i           lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
             lightningPlayer.settings.setMode("loop", true);
             lightningPlayer.settings.volume = 0;
             lightningPlayer.controls.play();
