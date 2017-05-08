@@ -44,7 +44,8 @@ namespace Projekt2
             timer.Start();
 
             synth.SetOutputToDefaultAudioDevice();
-
+            
+            //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
             rainPlayer.settings.setMode("loop", true);
             rainPlayer.settings.volume = 0;
@@ -55,10 +56,12 @@ namespace Projekt2
             windPlayer.settings.volume = 0;
             windPlayer.controls.play();
             
+            /* //Har ingen ljudfil till detta
             lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
             lightningPlayer.settings.setMode("loop", true);
             lightningPlayer.settings.volume = 0;
             lightningPlayer.controls.play();
+            */
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
@@ -95,11 +98,11 @@ namespace Projekt2
             
             if(weatherDescription == "thunderstorm")
             {
-                lightningPlayer.settings.volume = 0;
+                lightningPlayer.settings.volume = 50;
             }
             else
             {
-                lightningPlayer.settings.volume = 50;
+                lightningPlayer.settings.volume = 0;
             }
         }
 
