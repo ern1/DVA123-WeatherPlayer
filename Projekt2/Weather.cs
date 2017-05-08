@@ -90,7 +90,7 @@ namespace Projekt2
             {
                 roosterPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\Rooster.wav");
                 roosterPlayer.settings.setMode("loop", false);
-                windPlayer.controls.play();
+                roosterPlayer.controls.play();
             }
             
             if(weatherDescription == "thunderstorm")
