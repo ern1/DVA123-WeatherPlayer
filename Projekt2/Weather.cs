@@ -16,6 +16,7 @@ using OpenWeatherMap;
 using WMPLib;
 using System.Reflection;
 using System.Speech.Synthesis;
+using Microsoft.Speech.Recognition;
 
 namespace Projekt2
 {
@@ -34,6 +35,7 @@ namespace Projekt2
         WindowsMediaPlayer roosterPlayer = new WindowsMediaPlayer();
         WindowsMediaPlayer lightningPlayer = new WindowsMediaPlayer();
 
+        SpeechRecognitionEngine sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SpeechSynthesizer synth = new SpeechSynthesizer();
 
         public void Run()
@@ -44,6 +46,7 @@ namespace Projekt2
             timer.Start();
 
             synth.SetOutputToDefaultAudioDevice();
+            synth.Volume = 100;
             
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
@@ -55,31 +58,66 @@ namespace Projekt2
             windPlayer.settings.setMode("loop", true);
             windPlayer.settings.volume = 0;
             windPlayer.controls.play();
-            
+
             /* //Har ingen ljudfil till detta
             lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
             lightningPlayer.settings.setMode("loop", true);
             lightningPlayer.settings.volume = 0;
             lightningPlayer.controls.play();
             */
+
+
+            //   Speechrecognition    //
+            // Create a simple grammar
+            Choices colors = new Choices();
+            colors.Add(new string[] { "london", "stockholm", "madrid", "moscow", "new york", "oslo", "reykjavik" });
+
+            // Create a GrammarBuilder object and append the Choices object.
+            GrammarBuilder gb = new GrammarBuilder();
+            gb.Culture = new System.Globalization.CultureInfo("en-US");
+            gb.Append(colors);
+
+            // Create the Grammar instance and load it into the speech recognition engine.
+            Grammar g = new Grammar(gb);
+            sre.LoadGrammar(g);
+
+            // Register a handler for the SpeechRecognized event.
+            sre.SpeechRecognized +=
+                new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
+
+            sre.SetInputToDefaultAudioDevice();
+            sre.RecognizeAsync(RecognizeMode.Multiple);
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
         async public void GetWeather(Object obj, EventArgs args)
         {
-            var client = new OpenWeatherMapClient("a6157170de4efa67c578f2e6024235c4");
-            var currentWeather = await client.CurrentWeather.GetByName(weatherLocation);
+            try
+            {
+                var client = new OpenWeatherMapClient("a6157170de4efa67c578f2e6024235c4");
+                var currentWeather = await client.CurrentWeather.GetByName(weatherLocation);
 
-            temperature = currentWeather.Temperature.Value - 273.15;
-            rainLevel = currentWeather.Clouds.Value;
-            windSpeed = currentWeather.Wind.Speed.Value;
-            weatherDescription = currentWeather.Weather.Value;
+                temperature = currentWeather.Temperature.Value - 273.15;
+                rainLevel = currentWeather.Clouds.Value;
+                windSpeed = currentWeather.Wind.Speed.Value;
+                weatherDescription = currentWeather.Weather.Value;
 
-            label_location.Text = currentWeather.City.Name;
-            label_temperature.Text = temperature.ToString();
-            label_rain.Text = rainLevel.ToString();
-            label_wind.Text = windSpeed.ToString();
-            label_description.Text = weatherDescription;
+                label_location.Text = currentWeather.City.Name;
+                label_temperature.Text = temperature.ToString();
+                label_rain.Text = rainLevel.ToString();
+                label_wind.Text = windSpeed.ToString();
+                label_description.Text = weatherDescription;
+            }
+            catch (OpenWeatherMapException e)
+            {
+            }
+        }
+
+        void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            weatherLocation = e.Result.Text;
+            //synth.Speak("Location changed to" + e.Result.Text);
+            Debug.WriteLine(e.Result.Text);
         }
 
         //Ändrar ljudnivå på alla ljudklipp
