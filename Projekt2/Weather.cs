@@ -70,7 +70,7 @@ namespace Projekt2
             //   Speechrecognition    //
             // Create a simple grammar
             Choices colors = new Choices();
-            colors.Add(new string[] { "london", "stockholm", "madrid", "moscow", "new york", "oslo", "reykjavik" });
+            colors.Add(new string[] { "stockholm", "copenhagen", "warsaw", "kiev", "london", "stockholm", "madrid", "moscow", "washington", "oslo", "reykjavik", "santiago", "Seoul", "bern", "damascus", "budapest", "tokyo", "rome", "dublin", "taipei", "helsinki", "athens", "paris", "beijing", "lima", "lisbon", "ottawa", "sofia", "minsk", "brussels", "vienna", "pyongyang", "belgrade", "cairo", "berlin", "jakarta", "tehran", "jerusalem" });
 
             // Create a GrammarBuilder object and append the Choices object.
             GrammarBuilder gb = new GrammarBuilder();
@@ -84,9 +84,7 @@ namespace Projekt2
             // Register a handler for the SpeechRecognized event.
             sre.SpeechRecognized +=
                 new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
-
-            sre.SetInputToDefaultAudioDevice();
-            sre.RecognizeAsync(RecognizeMode.Multiple);
+            sre.SetInputToNull(); //ändra till sre.SetInputToDefaultAudioDevice() vid nedtryckning av knapp, och byt tillbak till sre.SetInputToNull() sen igen
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
@@ -111,6 +109,21 @@ namespace Projekt2
             catch (OpenWeatherMapException e)
             {
             }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                sre.SetInputToDefaultAudioDevice();
+                sre.RecognizeAsync(RecognizeMode.Multiple);
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+                sre.SetInputToNull();
         }
 
         void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
