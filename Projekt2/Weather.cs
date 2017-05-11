@@ -36,7 +36,7 @@ namespace Projekt2
         WindowsMediaPlayer lightningPlayer = new WindowsMediaPlayer();
 
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
-        SpeechSynthesizer synth = new SpeechSynthesizer();
+        SoundPlayer locationChanged = new SoundPlayer(Properties.Resources.pling);
 
         public void Run()
         {
@@ -44,9 +44,6 @@ namespace Projekt2
             timer.Tick += new EventHandler(SetWeather);
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
-
-            synth.SetOutputToDefaultAudioDevice();
-            synth.Volume = 100;
             
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
@@ -70,7 +67,7 @@ namespace Projekt2
             //   Speechrecognition    //
             // Create a simple grammar
             Choices colors = new Choices();
-            colors.Add(new string[] { "stockholm", "copenhagen", "warsaw", "kiev", "london", "stockholm", "madrid", "moscow", "washington", "oslo", "reykjavik", "santiago", "Seoul", "bern", "damascus", "budapest", "tokyo", "rome", "dublin", "taipei", "helsinki", "athens", "paris", "beijing", "lima", "lisbon", "ottawa", "sofia", "minsk", "brussels", "vienna", "pyongyang", "belgrade", "cairo", "berlin", "jakarta", "tehran", "jerusalem" });
+            colors.Add(new string[] { "stockholm", "copenhagen", "warsaw", "kiev", "london", "madrid", "moscow", "washington", "oslo", "reykjavik", "santiago", "Seoul", "bern", "damascus", "budapest", "tokyo", "rome", "dublin", "taipei", "helsinki", "athens", "paris", "beijing", "lima", "lisbon", "ottawa", "sofia", "minsk", "brussels", "vienna", "pyongyang", "belgrade", "cairo", "berlin", "jakarta", "tehran", "jerusalem" });
 
             // Create a GrammarBuilder object and append the Choices object.
             GrammarBuilder gb = new GrammarBuilder();
@@ -84,7 +81,8 @@ namespace Projekt2
             // Register a handler for the SpeechRecognized event.
             sre.SpeechRecognized +=
                 new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
-            sre.SetInputToNull(); //ändra till sre.SetInputToDefaultAudioDevice() vid nedtryckning av knapp, och byt tillbak till sre.SetInputToNull() sen igen
+            sre.SetInputToDefaultAudioDevice();
+            sre.RecognizeAsyncStop();
         }
 
         //Hämtar väder och uppdaterar variabler och textfält
@@ -111,26 +109,13 @@ namespace Projekt2
             }
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1)
-            {
-                sre.SetInputToDefaultAudioDevice();
-                sre.RecognizeAsync(RecognizeMode.Multiple);
-            }
-        }
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1)
-                sre.SetInputToNull();
-        }
-
         void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             weatherLocation = e.Result.Text;
-            //synth.Speak("Location changed to" + e.Result.Text);
-            Debug.WriteLine(e.Result.Text);
+            locationChanged.Play();
+            Debug.WriteLine("weatherLocation: " + weatherLocation);
+            Debug.WriteLine("SpeechRecognition: " + e.Result.Text);
+            
         }
 
         //Ändrar ljudnivå på alla ljudklipp

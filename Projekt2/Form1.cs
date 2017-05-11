@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Speech.Recognition;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace Projekt2
         public Form1()
         {
             InitializeComponent();
+            this.KeyPreview = true;
             Run();
         }
 
@@ -25,6 +27,20 @@ namespace Projekt2
 
             weatherLocation = box_changeLocation.Text;
             box_changeLocation.Text = string.Empty;
+            locationChanged.Play();
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                try
+                {
+                    sre.RecognizeAsync(RecognizeMode.Multiple);
+                }
+                catch (InvalidOperationException ioe)
+                { }
+            }
         }
     }
 }

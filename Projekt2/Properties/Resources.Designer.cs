@@ -59,5 +59,14 @@ namespace Projekt2.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream pling {
+            get {
+                return ResourceManager.GetStream("pling", resourceCulture);
+            }
+        }
     }
 }
