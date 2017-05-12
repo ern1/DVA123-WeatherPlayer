@@ -37,7 +37,10 @@ namespace Projekt2
 
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SoundPlayer locationChanged = new SoundPlayer(Properties.Resources.pling);
-
+        
+        //Lägg till ljud så man vet när röstigenkänning har aktiverats
+        //SoundPlayer SpeechRecognitionStarted = new SoundPlayer(???)
+        
         public void Run()
         {
             timer.Tick += new EventHandler(GetWeather);
