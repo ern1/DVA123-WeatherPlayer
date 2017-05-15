@@ -30,16 +30,20 @@ namespace Projekt2
         public double windSpeed;
         public string weatherDescription;
 
-        WindowsMediaPlayer rainPlayer = new WindowsMediaPlayer();
-        WindowsMediaPlayer windPlayer = new WindowsMediaPlayer();
-        WindowsMediaPlayer roosterPlayer = new WindowsMediaPlayer();
-        WindowsMediaPlayer lightningPlayer = new WindowsMediaPlayer();
+        WindowsMediaPlayer lightRain = new WindowsMediaPlayer();
+        WindowsMediaPlayer heavyRain = new WindowsMediaPlayer();
+        WindowsMediaPlayer wind = new WindowsMediaPlayer();
+        WindowsMediaPlayer winter = new WindowsMediaPlayer();
+        WindowsMediaPlayer thunder = new WindowsMediaPlayer();
+        WindowsMediaPlayer birds = new WindowsMediaPlayer();
+        WindowsMediaPlayer jungle = new WindowsMediaPlayer();
+        WindowsMediaPlayer beachCola = new WindowsMediaPlayer();
+        WindowsMediaPlayer summerBee = new WindowsMediaPlayer();
+
 
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SoundPlayer locationChanged = new SoundPlayer(Properties.Resources.pling);
-        
-        //Lägg till ljud så man vet när röstigenkänning har aktiverats
-        //SoundPlayer SpeechRecognitionStarted = new SoundPlayer(???)
+        SoundPlayer SpeechRecognitionStarted = new SoundPlayer(Properties.Resources.mechsound);
         
         public void Run()
         {
@@ -47,24 +51,53 @@ namespace Projekt2
             timer.Tick += new EventHandler(SetWeather);
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
-            
+
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
-            rainPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\rain-03.wav");
-            rainPlayer.settings.setMode("loop", true);
-            rainPlayer.settings.volume = 0;
-            rainPlayer.controls.play();
+            lightRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\lightRain.wav");
+            lightRain.settings.setMode("loop", true);
+            lightRain.settings.volume = 0;
+            lightRain.controls.play();
 
-            windPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind-1.wav");
-            windPlayer.settings.setMode("loop", true);
-            windPlayer.settings.volume = 0;
-            windPlayer.controls.play();
+            heavyRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\heavyRain.wav");
+            heavyRain.settings.setMode("loop", true);
+            heavyRain.settings.volume = 0;
+            heavyRain.controls.play();
 
-            /* //Har ingen ljudfil till detta
-            lightningPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\????????????");
-            lightningPlayer.settings.setMode("loop", true);
-            lightningPlayer.settings.volume = 0;
-            lightningPlayer.controls.play();
-            */
+            wind.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind.mp3");
+            wind.settings.setMode("loop", true);
+            wind.settings.volume = 0;
+            wind.controls.play();
+
+            winter.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\winter.wav");
+            winter.settings.setMode("loop", true);
+            winter.settings.volume = 0;
+            winter.controls.play();
+
+            thunder.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\thunder.wav");
+            thunder.settings.setMode("loop", true);
+            thunder.settings.volume = 0;
+            thunder.controls.play();
+
+            birds.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\birds.mp3");
+            birds.settings.setMode("loop", true);
+            birds.settings.volume = 0;
+            birds.controls.play();
+
+            jungle.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\jungle.wav");
+            jungle.settings.setMode("loop", true);
+            jungle.settings.volume = 0;
+            jungle.controls.play();
+
+            beachCola.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\beachCola.wav");
+            beachCola.settings.setMode("loop", true);
+            beachCola.settings.volume = 0;
+            beachCola.controls.play();
+
+            summerBee.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\summerBee.wav");
+            summerBee.settings.setMode("loop", true);
+            summerBee.settings.volume = 0;
+            summerBee.controls.play();
+
 
 
             //   Speechrecognition    //
@@ -124,24 +157,26 @@ namespace Projekt2
         //Ändrar ljudnivå på alla ljudklipp
         public void SetWeather(Object obj, EventArgs args)
         {
-            rainPlayer.settings.volume = rainLevel;
-            windPlayer.settings.volume = Convert.ToInt32(windSpeed * 8);
+            //lightRain.settings.volume = rainLevel;
+            wind.settings.volume = Convert.ToInt32(windSpeed * 8);
+            //wind.settings.rate = 1;
 
             var time = DateTime.Now;
             if (time.Hour == 12 && time.Minute == 0 && time.Second == 0)
             {
-                roosterPlayer.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\Rooster.wav");
-                roosterPlayer.settings.setMode("loop", false);
-                roosterPlayer.controls.play();
+                using (var roosterPlayer = new SoundPlayer(Properties.Resources.Rooster))
+                {
+                    roosterPlayer.Play();
+                }
             }
             
             if(weatherDescription == "thunderstorm")
             {
-                lightningPlayer.settings.volume = 50;
+                thunder.settings.volume = 50;
             }
             else
             {
-                lightningPlayer.settings.volume = 0;
+                thunder.settings.volume = 0;
             }
         }
 
