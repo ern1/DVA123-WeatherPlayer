@@ -228,8 +228,7 @@ namespace Projekt2
             if(windSpeed >= 3)
             {
                 wind.controls.play();
-                wind.settings.volume = Convert.ToInt32(windSpeed * 8);
-                //wind.settings.rate = 1;
+                wind.settings.volume = Convert.ToInt32(windSpeed) + 0.2;
             }
             else
             {
@@ -239,11 +238,11 @@ namespace Projekt2
             //Thunder
             if(weatherDescription == "thunderstorm")
             {
-                thunder.settings.volume = 50;
+                thunder.controls.play();
             }
             else
             {
-                thunder.settings.volume = 0;
+                thunder.controls.stop();
             }
             
             var time = DateTime.Now;
