@@ -54,12 +54,12 @@ namespace Projekt2
 
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             lightRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\lightRain.wav");
-            lightRain.settings.setMode("loop", false);
+            lightRain.settings.setMode("loop", true);
             lightRain.settings.volume = 50;
             lightRain.controls.stop();
 
             heavyRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\heavyRain.wav");
-            heavyRain.settings.setMode("loop", false);
+            heavyRain.settings.setMode("loop", true);
             heavyRain.settings.volume = 50;
             heavyRain.controls.stop();
 
@@ -86,7 +86,7 @@ namespace Projekt2
             jungle.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\jungle.wav");
             jungle.settings.setMode("loop", true);
             jungle.settings.volume = 50;
-            jungle.controls.play();
+            jungle.controls.stop();
 
             beachCola.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\beachCola.wav");
             beachCola.settings.setMode("loop", true);
