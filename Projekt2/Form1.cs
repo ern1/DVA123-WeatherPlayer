@@ -17,6 +17,7 @@ namespace Projekt2
         {
             InitializeComponent();
             this.KeyPreview = true;
+            //Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
             Run();
         }
 
@@ -41,26 +42,6 @@ namespace Projekt2
                 }
                 catch (InvalidOperationException ioe)
                 { }
-            }
-
-            if(e.KeyCode == Keys.Up)
-            {
-                wind.settings.rate += 0.05;
-            }
-
-            if (e.KeyCode == Keys.Down)
-            {
-                wind.settings.rate -= 0.05;
-            }
-
-            if (e.KeyCode == Keys.Left)
-            {
-                wind.settings.rate = 0.85;
-            }
-
-            if (e.KeyCode == Keys.Right)
-            {
-                wind.settings.rate = 1.25;
             }
         }
     }

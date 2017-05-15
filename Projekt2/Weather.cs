@@ -151,7 +151,7 @@ namespace Projekt2
             locationChanged.Play();
             Debug.WriteLine("weatherLocation: " + weatherLocation);
             Debug.WriteLine("SpeechRecognition: " + e.Result.Text);
-            
+            sre.RecognizeAsyncStop();
         }
 
         //Ändrar ljudnivå på alla ljudklipp
@@ -213,7 +213,7 @@ namespace Projekt2
                 lightRain.controls.play();
                 heavyRain.controls.stop();
             }
-            else if(rainlevel > 80)
+            else if(rainLevel > 80)
             {
                 lightRain.controls.stop();
                 heavyRain.controls.play();
@@ -228,7 +228,7 @@ namespace Projekt2
             if(windSpeed >= 3)
             {
                 wind.controls.play();
-                wind.settings.volume = Convert.ToInt32(windSpeed) + 0.2;
+                wind.settings.volume = Convert.ToInt32(windSpeed + 0.2);
             }
             else
             {

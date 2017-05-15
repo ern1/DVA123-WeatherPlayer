@@ -56,6 +56,7 @@
             // label_location
             // 
             this.label_location.AutoSize = true;
+            this.label_location.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_location.Location = new System.Drawing.Point(109, 31);
             this.label_location.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_location.Name = "label_location";
@@ -143,6 +144,7 @@
             // 
             // button1
             // 
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.button1.Location = new System.Drawing.Point(196, 238);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
@@ -176,6 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(379, 321);
             this.Controls.Add(this.label_description);
             this.Controls.Add(this.label9);
@@ -190,6 +193,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label_location);
             this.Controls.Add(this.label1);
+            this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
