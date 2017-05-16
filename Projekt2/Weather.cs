@@ -28,7 +28,7 @@ namespace Projekt2
         public double temperature; // I celsius
         public int rainLevel;
         public double windSpeed;
-        public string weatherDescription;
+        public int weatherDescription;
 
         WindowsMediaPlayer lightRain = new WindowsMediaPlayer();
         WindowsMediaPlayer heavyRain = new WindowsMediaPlayer();
@@ -55,12 +55,12 @@ namespace Projekt2
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             lightRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\lightRain.wav");
             lightRain.settings.setMode("loop", true);
-            lightRain.settings.volume = 50;
+            lightRain.settings.volume = 70;
             lightRain.controls.stop();
 
             heavyRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\heavyRain.wav");
             heavyRain.settings.setMode("loop", true);
-            heavyRain.settings.volume = 50;
+            heavyRain.settings.volume = 70;
             heavyRain.controls.stop();
 
             wind.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\wind.mp3");
@@ -70,32 +70,32 @@ namespace Projekt2
 
             winter.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\winter.wav");
             winter.settings.setMode("loop", true);
-            winter.settings.volume = 50;
+            winter.settings.volume = 70;
             winter.controls.stop();
 
             thunder.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\thunder.wav");
             thunder.settings.setMode("loop", true);
-            thunder.settings.volume = 50;
+            thunder.settings.volume = 70;
             thunder.controls.stop();
 
             birds.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\birds.mp3");
             birds.settings.setMode("loop", true);
-            birds.settings.volume = 50;
+            birds.settings.volume = 40;
             birds.controls.stop();
 
             jungle.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\jungle.wav");
             jungle.settings.setMode("loop", true);
-            jungle.settings.volume = 50;
+            jungle.settings.volume = 70;
             jungle.controls.stop();
 
             beachCola.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\beachCola.wav");
             beachCola.settings.setMode("loop", true);
-            beachCola.settings.volume = 50;
+            beachCola.settings.volume = 70;
             beachCola.controls.stop();
 
             summerBee.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\summerBee.wav");
             summerBee.settings.setMode("loop", true);
-            summerBee.settings.volume = 50;
+            summerBee.settings.volume = 70;
             summerBee.controls.stop();
 
 
@@ -132,13 +132,13 @@ namespace Projekt2
                 temperature = currentWeather.Temperature.Value - 273.15;
                 rainLevel = currentWeather.Clouds.Value;
                 windSpeed = currentWeather.Wind.Speed.Value;
-                weatherDescription = currentWeather.Weather.Value;
+                weatherDescription = currentWeather.Weather.Number;
 
                 label_location.Text = currentWeather.City.Name;
                 label_temperature.Text = temperature.ToString();
                 label_rain.Text = rainLevel.ToString();
                 label_wind.Text = windSpeed.ToString();
-                label_description.Text = weatherDescription;
+                label_description.Text = currentWeather.Weather.Value;
             }
             catch (OpenWeatherMapException e)
             {
@@ -158,17 +158,15 @@ namespace Projekt2
         public void SetWeather(Object obj, EventArgs args)
         {
             //Temperature
-            if(temperature < -5)
+            if(temperature <= -5)
             {
-                winter.controls.play();
-                birds.controls.play();
+                birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
             else if(temperature > -5 && temperature <= 10)
             {
-                winter.controls.stop();
                 birds.controls.play();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
@@ -176,7 +174,6 @@ namespace Projekt2
             }
             else if(temperature > 10 && temperature <= 20)
             {
-                winter.controls.stop();
                 birds.controls.stop();
                 summerBee.controls.play();
                 beachCola.controls.stop();
@@ -184,36 +181,26 @@ namespace Projekt2
             }
             else if(temperature > 20 && temperature <= 30)
             {
-                winter.controls.stop();
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.play();
                 jungle.controls.stop();
             }
-            else if(temperature > 30)
+            else //temp över 30
             {
-                winter.controls.stop();
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.play();
             }
-            else
-            {
-                winter.controls.stop();
-                birds.controls.play();
-                summerBee.controls.stop();
-                beachCola.controls.stop();
-                jungle.controls.stop();
-            }
 
             //Rain
-            if(rainLevel >= 50 && rainLevel <= 80)
+            if(rainLevel >= 50 && rainLevel <= 80 && weatherDescription >= 500 && weatherDescription < 600)
             {
                 lightRain.controls.play();
                 heavyRain.controls.stop();
             }
-            else if(rainLevel > 80)
+            else if(rainLevel > 80 && weatherDescription >= 500 && weatherDescription < 600)
             {
                 lightRain.controls.stop();
                 heavyRain.controls.play();
@@ -236,7 +223,7 @@ namespace Projekt2
             }
             
             //Thunder
-            if(weatherDescription == "thunderstorm")
+            if(weatherDescription >= 200 && weatherDescription < 300)
             {
                 thunder.controls.play();
             }
@@ -244,7 +231,17 @@ namespace Projekt2
             {
                 thunder.controls.stop();
             }
-            
+
+            //Snow
+            if (weatherDescription >= 600 && weatherDescription < 700)
+            {
+                winter.controls.play();
+            }
+            else
+            {
+                winter.controls.stop();
+            }
+
             var time = DateTime.Now;
             if (time.Hour == 12 && time.Minute == 0 && time.Second == 0)
             {
