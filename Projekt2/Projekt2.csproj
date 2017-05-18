@@ -171,5 +171,29 @@
   <ItemGroup>
     <None Include="Resources\Rooster.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\muted.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\010-rain-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\016-bolt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\044-temperature-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wind.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

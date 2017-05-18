@@ -49,6 +49,7 @@ namespace Projekt2
         {
             timer.Tick += new EventHandler(GetWeather);
             timer.Tick += new EventHandler(SetWeather);
+            timer.Tick += new EventHandler(SetWeatherDescriptionImage)
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
 
@@ -99,7 +100,6 @@ namespace Projekt2
             summerBee.controls.stop();
 
 
-
             //   Speechrecognition    //
             // Create a simple grammar
             Choices colors = new Choices();
@@ -121,7 +121,7 @@ namespace Projekt2
             sre.RecognizeAsyncStop();
         }
 
-        //Hämtar väder och uppdaterar variabler och textfält
+        //Hämtar väder och uppdaterar variabler, textfält, progressbars och bilder
         async public void GetWeather(Object obj, EventArgs args)
         {
             try
@@ -129,16 +129,14 @@ namespace Projekt2
                 var client = new OpenWeatherMapClient("a6157170de4efa67c578f2e6024235c4");
                 var currentWeather = await client.CurrentWeather.GetByName(weatherLocation);
 
-                temperature = currentWeather.Temperature.Value - 273.15;
+                temperature = currentWeather.Temperature.Value;
                 rainLevel = currentWeather.Clouds.Value;
                 windSpeed = currentWeather.Wind.Speed.Value;
                 weatherDescription = currentWeather.Weather.Number;
 
                 label_location.Text = currentWeather.City.Name;
-                label_temperature.Text = temperature.ToString();
-                label_rain.Text = rainLevel.ToString();
-                label_wind.Text = windSpeed.ToString();
-                label_description.Text = currentWeather.Weather.Value;
+                progressBar_temp.Value = (int)temperature;
+                progressBar_wind.Value = (int)windSpeed;
             }
             catch (OpenWeatherMapException e)
             {
@@ -152,34 +150,35 @@ namespace Projekt2
             Debug.WriteLine("weatherLocation: " + weatherLocation);
             Debug.WriteLine("SpeechRecognition: " + e.Result.Text);
             sre.RecognizeAsyncStop();
+            pictureBox_mic.Image = Properties.Resources.muted;
         }
 
         //Ändrar ljudnivå på alla ljudklipp
         public void SetWeather(Object obj, EventArgs args)
         {
             //Temperature
-            if(temperature <= -5)
+            if(temperature <= -5 + 273.15)
             {
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > -5 && temperature <= 10)
+            else if(temperature > -5 + 273.15 && temperature <= 10 + 273.15)
             {
                 birds.controls.play();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > 10 && temperature <= 20)
+            else if(temperature > 10 + 273.15 && temperature <= 20 + 273.15)
             {
                 birds.controls.stop();
                 summerBee.controls.play();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > 20 && temperature <= 30)
+            else if(temperature > 20 + 273.15 && temperature <= 30 + 273.15)
             {
                 birds.controls.stop();
                 summerBee.controls.stop();
@@ -250,6 +249,36 @@ namespace Projekt2
                     roosterPlayer.Play();
                 }
             }
+        }
+
+        public void setWeatherDescriptionImage(Object obj, EventArgs args)
+        {
+            if(weatherDescription >= 200 && weatherDescription < 300)
+                pictureBox_description.Image = Properties.Resources.bolt;
+
+            else if(weatherDescription >= 300 && weatherDescription < 400)
+                pictureBox_description.Image = Properties.Resources
+
+            else if (weatherDescription >= 500 && weatherDescription < 600)
+                pictureBox_description.Image = Properties.Resources
+
+            else if (weatherDescription >= 600 && weatherDescription < 700)
+                pictureBox_description.Image = Properties.Resources
+
+            else if ()
+                pictureBox_description.Image = Properties.Resources
+
+            else if ()
+                pictureBox_description.Image = Properties.Resources
+
+            else if ()
+                pictureBox_description.Image = Properties.Resources
+
+            else if ()
+                pictureBox_description.Image = Properties.Resources
+
+            else if ()
+                pictureBox_description.Image = Properties.Resources
         }
 
     }
