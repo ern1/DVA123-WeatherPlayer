@@ -242,7 +242,7 @@ namespace Projekt2
             }
 
             //Snow
-            if (weatherDescription >= 600 && weatherDescription < 700)
+            if (weatherDescription >= 600 && weatherDescription < 700 || temperature <= -10 + 273.15)
             {
                 winter.controls.play();
             }
