@@ -263,34 +263,42 @@ namespace Projekt2
 
         public void SetWeatherDescriptionImage(Object obj, EventArgs args)
         {
-            if (weatherDescription >= 200 && weatherDescription < 300)
+            if (weatherDescription >= 200 && weatherDescription <= 221)
                 pictureBox_description.Image = Properties.Resources.bolt;
 
-            else if (weatherDescription >= 300 && weatherDescription < 400)
-                pictureBox_description.Image = Properties.Resources.bolt; //test
+            else if (weatherDescription >= 230 && weatherDescription <= 232)
+                pictureBox_description.Image = Properties.Resources.boltAndRain;
 
-            else if (weatherDescription >= 500 && weatherDescription < 600)
-                pictureBox_description.Image = Properties.Resources.bolt; //test
+            else if (weatherDescription >= 300 && weatherDescription <= 531)
+                pictureBox_description.Image = Properties.Resources.rain;
 
-            else if (weatherDescription >= 600 && weatherDescription < 700)
-                pictureBox_description.Image = Properties.Resources.bolt; //test
+            else if (weatherDescription >= 600 && weatherDescription <= 622 || weatherDescription == 906)
+                pictureBox_description.Image = Properties.Resources.snow;
             
-            /*
-            else if ()
-                pictureBox_description.Image = Properties.Resources
+            else if (weatherDescription >= 701 && weatherDescription <= 771)
+                pictureBox_description.Image = Properties.Resources.atmosphere;
 
-            else if ()
-                pictureBox_description.Image = Properties.Resources
+            else if (weatherDescription >= 801 && weatherDescription <= 804)
+                pictureBox_description.Image = Properties.Resources.clouds;
 
-            else if ()
-                pictureBox_description.Image = Properties.Resources
+            else if (weatherDescription == 800 || weatherDescription == 951 || weatherDescription == 904)
+                pictureBox_description.Image = Properties.Resources.sun;
 
-            else if ()
-                pictureBox_description.Image = Properties.Resources
+            else if (weatherDescription >= 900 && weatherDescription <= 902 || weatherDescription == 781 || weatherDescription == 961 || weatherDescription == 962)
+                pictureBox_description.Image = Properties.Resources.tornado;
 
-            else if ()
-                pictureBox_description.Image = Properties.Resources
-             */
+            else if (weatherDescription == 903)
+                pictureBox_description.Image = Properties.Resources.cold;
+                
+            else if (weatherDescription == 951 || weatherDescription == 953 || weatherDescription == 955)
+                pictureBox_description.Image = Properties.Resources.pine;
+
+            else if (weatherDescription == 905 || weatherDescription == 954 || weatherDescription >= 956 && weatherDescription <= 958)
+                pictureBox_description.Image = Properties.Resources.wind;
+
+            else if (weatherDescription == 959 || weatherDescription == 960)
+                pictureBox_description.Image = Properties.Resources.storm;
+
         }
 
     }
