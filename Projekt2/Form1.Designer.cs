@@ -41,6 +41,7 @@
             this.pictureBox_mic = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.progressBar_mic = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_description)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_wind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_temp)).BeginInit();
@@ -63,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(431, 265);
+            this.label2.Location = new System.Drawing.Point(491, 288);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 17);
@@ -72,7 +73,7 @@
             // 
             // box_changeLocation
             // 
-            this.box_changeLocation.Location = new System.Drawing.Point(434, 286);
+            this.box_changeLocation.Location = new System.Drawing.Point(424, 312);
             this.box_changeLocation.Margin = new System.Windows.Forms.Padding(4);
             this.box_changeLocation.Name = "box_changeLocation";
             this.box_changeLocation.Size = new System.Drawing.Size(132, 22);
@@ -81,7 +82,7 @@
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(612, 283);
+            this.button1.Location = new System.Drawing.Point(564, 309);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -110,9 +111,9 @@
             // 
             // pictureBox_description
             // 
-            this.pictureBox_description.Location = new System.Drawing.Point(135, 328);
+            this.pictureBox_description.Location = new System.Drawing.Point(135, 312);
             this.pictureBox_description.Name = "pictureBox_description";
-            this.pictureBox_description.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox_description.Size = new System.Drawing.Size(100, 90);
             this.pictureBox_description.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_description.TabIndex = 19;
             this.pictureBox_description.TabStop = false;
@@ -150,7 +151,7 @@
             // pictureBox_mic
             // 
             this.pictureBox_mic.Image = global::Projekt2.Properties.Resources.muted;
-            this.pictureBox_mic.Location = new System.Drawing.Point(503, 80);
+            this.pictureBox_mic.Location = new System.Drawing.Point(494, 63);
             this.pictureBox_mic.Name = "pictureBox_mic";
             this.pictureBox_mic.Size = new System.Drawing.Size(127, 127);
             this.pictureBox_mic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -161,7 +162,7 @@
             // 
             this.pictureBox1.Image = global::Projekt2.Properties.Resources.info;
             this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(710, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(694, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 40);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -172,19 +173,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(464, 210);
+            this.label1.Location = new System.Drawing.Point(449, 222);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 17);
             this.label1.TabIndex = 22;
             this.label1.Text = "Press F1 to activate microphone";
             // 
+            // progressBar_mic
+            // 
+            this.progressBar_mic.Location = new System.Drawing.Point(507, 196);
+            this.progressBar_mic.Name = "progressBar_mic";
+            this.progressBar_mic.Size = new System.Drawing.Size(100, 23);
+            this.progressBar_mic.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(776, 428);
+            this.ClientSize = new System.Drawing.Size(750, 428);
+            this.Controls.Add(this.progressBar_mic);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar_wind);
             this.Controls.Add(this.progressBar_temp);
@@ -228,6 +237,7 @@
         private System.Windows.Forms.ProgressBar progressBar_temp;
         private System.Windows.Forms.ProgressBar progressBar_wind;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar progressBar_mic;
     }
 }
 

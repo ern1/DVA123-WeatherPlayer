@@ -24,8 +24,9 @@ namespace Projekt2
     {
         
         private Timer timer = new Timer();
+        private Timer timer2 = new Timer();
         public string weatherLocation = "Stockholm";
-        public double temperature; // I celsius
+        public double temperature;
         public int rainLevel;
         public double windSpeed;
         public int weatherDescription;
@@ -49,9 +50,13 @@ namespace Projekt2
         {
             timer.Tick += new EventHandler(GetWeather);
             timer.Tick += new EventHandler(SetWeather);
-            timer.Tick += new EventHandler(SetWeatherDescriptionImage)
+            timer.Tick += new EventHandler(SetWeatherDescriptionImage);
             timer.Interval = 1000; //Ändra till 60000 sen
             timer.Start();
+
+            timer2.Tick += new EventHandler(UpdateAudioLevel);
+            timer2.Interval = 10;
+            timer2.Start();
 
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             lightRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\lightRain.wav");
@@ -153,6 +158,11 @@ namespace Projekt2
             pictureBox_mic.Image = Properties.Resources.muted;
         }
 
+        void UpdateAudioLevel(Object obj, EventArgs args)
+        {
+            progressBar_mic.Value = sre.AudioLevel;
+        }
+
         //Ändrar ljudnivå på alla ljudklipp
         public void SetWeather(Object obj, EventArgs args)
         {
@@ -251,20 +261,21 @@ namespace Projekt2
             }
         }
 
-        public void setWeatherDescriptionImage(Object obj, EventArgs args)
+        public void SetWeatherDescriptionImage(Object obj, EventArgs args)
         {
-            if(weatherDescription >= 200 && weatherDescription < 300)
+            if (weatherDescription >= 200 && weatherDescription < 300)
                 pictureBox_description.Image = Properties.Resources.bolt;
 
-            else if(weatherDescription >= 300 && weatherDescription < 400)
-                pictureBox_description.Image = Properties.Resources
+            else if (weatherDescription >= 300 && weatherDescription < 400)
+                pictureBox_description.Image = Properties.Resources.bolt; //test
 
             else if (weatherDescription >= 500 && weatherDescription < 600)
-                pictureBox_description.Image = Properties.Resources
+                pictureBox_description.Image = Properties.Resources.bolt; //test
 
             else if (weatherDescription >= 600 && weatherDescription < 700)
-                pictureBox_description.Image = Properties.Resources
-
+                pictureBox_description.Image = Properties.Resources.bolt; //test
+            
+            /*
             else if ()
                 pictureBox_description.Image = Properties.Resources
 
@@ -279,6 +290,7 @@ namespace Projekt2
 
             else if ()
                 pictureBox_description.Image = Properties.Resources
+             */
         }
 
     }
