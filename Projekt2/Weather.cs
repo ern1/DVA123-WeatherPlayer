@@ -86,7 +86,7 @@ namespace Projekt2
 
             birds.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\birds.mp3");
             birds.settings.setMode("loop", true);
-            birds.settings.volume = 40;
+            birds.settings.volume = 50;
             birds.controls.stop();
 
             jungle.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\jungle.wav");
@@ -294,7 +294,7 @@ namespace Projekt2
                 pictureBox_description.Image = Properties.Resources.pine;
 
             else if (weatherDescription == 905 || weatherDescription == 954 || weatherDescription >= 956 && weatherDescription <= 958)
-                pictureBox_description.Image = Properties.Resources.wind;
+                pictureBox_description.Image = Properties.Resources.windCloud;
 
             else if (weatherDescription == 959 || weatherDescription == 960)
                 pictureBox_description.Image = Properties.Resources.storm;
