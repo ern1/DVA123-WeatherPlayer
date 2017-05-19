@@ -55,7 +55,7 @@ namespace Projekt2
             timer.Start();
 
             timer2.Tick += new EventHandler(UpdateAudioLevel);
-            timer2.Interval = 10;
+            timer2.Interval = 1;
             timer2.Start();
 
             //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
@@ -153,7 +153,6 @@ namespace Projekt2
             weatherLocation = e.Result.Text;
             locationChanged.Play();
             Debug.WriteLine("weatherLocation: " + weatherLocation);
-            Debug.WriteLine("SpeechRecognition: " + e.Result.Text);
             sre.RecognizeAsyncStop();
             pictureBox_mic.Image = Properties.Resources.muted;
         }

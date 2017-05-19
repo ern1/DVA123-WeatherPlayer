@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Projekt2
 {
@@ -22,9 +23,9 @@ namespace Projekt2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (box_changeLocation.Text == string.Empty)
+            if (!(box_changeLocation.Text.All(char.IsLetter)) || box_changeLocation.Text == string.Empty)
                 return;
-
+            
             weatherLocation = box_changeLocation.Text;
             box_changeLocation.Text = string.Empty;
             locationChanged.Play();
