@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label_location = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.box_changeLocation = new System.Windows.Forms.TextBox();
@@ -120,7 +121,7 @@
             // 
             // pictureBox_wind
             // 
-            this.pictureBox_wind.Image = global::Projekt2.Properties.Resources.wind;
+            this.pictureBox_wind.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_wind.Image")));
             this.pictureBox_wind.Location = new System.Drawing.Point(49, 155);
             this.pictureBox_wind.Name = "pictureBox_wind";
             this.pictureBox_wind.Size = new System.Drawing.Size(100, 96);
@@ -210,7 +211,7 @@
             this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "WeatherPlayer";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_description)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_wind)).EndInit();
