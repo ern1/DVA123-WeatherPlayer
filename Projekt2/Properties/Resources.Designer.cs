@@ -93,6 +93,26 @@ namespace Projekt2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CloseRed {
+            get {
+                object obj = ResourceManager.GetObject("CloseRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CloseWhite {
+            get {
+                object obj = ResourceManager.GetObject("CloseWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clouds {
             get {
                 object obj = ResourceManager.GetObject("clouds", resourceCulture);
@@ -145,6 +165,26 @@ namespace Projekt2.Properties {
         internal static System.Drawing.Bitmap microphone {
             get {
                 object obj = ResourceManager.GetObject("microphone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Minimize_Red {
+            get {
+                object obj = ResourceManager.GetObject("Minimize_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MinimizeWhite {
+            get {
+                object obj = ResourceManager.GetObject("MinimizeWhite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

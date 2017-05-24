@@ -57,7 +57,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -225,6 +225,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinimizeWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minimize_Red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
