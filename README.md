@@ -1,4 +1,5 @@
 # DVA123-WeatherPlayer
+Uses OpenWeatherMap to get weather information.
 
 To run, install:
 - Microsoft Speech Platform - Runtime (Version 11) x64
