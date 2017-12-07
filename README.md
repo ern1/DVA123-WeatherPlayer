@@ -1,4 +1,4 @@
-# DVA123-WeatherPlayer
+# WeatherPlayer
 Uses OpenWeatherMap to get weather information.
 
 To run, install:
