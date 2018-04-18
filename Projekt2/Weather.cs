@@ -22,7 +22,6 @@ namespace Projekt2
 {
     public partial class Form1 : Form
     {
-        
         private Timer timer = new Timer();
         private Timer timer2 = new Timer();
         public string weatherLocation = "Stockholm";
@@ -51,14 +50,13 @@ namespace Projekt2
             timer.Tick += new EventHandler(GetWeather);
             timer.Tick += new EventHandler(SetWeather);
             timer.Tick += new EventHandler(SetWeatherDescriptionImage);
-            timer.Interval = 1000; //Ändra till 60000 sen
+            timer.Interval = 1000; // Should be set higher
             timer.Start();
 
             timer2.Tick += new EventHandler(UpdateAudioLevel);
             timer2.Interval = 1;
             timer2.Start();
 
-            //Utgår från där den exekverbara filen ligger, så sounds-mappen måste läggas där
             lightRain.URL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sounds\\lightRain.wav");
             lightRain.settings.setMode("loop", true);
             lightRain.settings.volume = 70;
@@ -104,8 +102,7 @@ namespace Projekt2
             summerBee.settings.volume = 70;
             summerBee.controls.stop();
 
-
-            //   Speechrecognition    //
+            /*   Speechrecognition    */
             // Create a simple grammar
             Choices colors = new Choices();
             colors.Add(new string[] { "stockholm", "copenhagen", "warsaw", "kiev", "london", "madrid", "moscow", "washington", "oslo", "reykjavik", "santiago", "Seoul", "bern", "damascus", "budapest", "tokyo", "rome", "dublin", "taipei", "helsinki", "athens", "paris", "beijing", "lima", "lisbon", "ottawa", "sofia", "minsk", "brussels", "vienna", "pyongyang", "belgrade", "cairo", "berlin", "jakarta", "tehran", "jerusalem" });
@@ -126,7 +123,7 @@ namespace Projekt2
             sre.RecognizeAsyncStop();
         }
 
-        //Hämtar väder och uppdaterar variabler, textfält, progressbars och bilder
+        /* Gets and updates weather variables, text fields, progress bars and pictures */
         async public void GetWeather(Object obj, EventArgs args)
         {
             try
@@ -143,9 +140,7 @@ namespace Projekt2
                 progressBar_temp.Value = (int)temperature;
                 progressBar_wind.Value = (int)windSpeed;
             }
-            catch (OpenWeatherMapException e)
-            {
-            }
+            catch (OpenWeatherMapException e) { }
         }
 
         void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -162,101 +157,83 @@ namespace Projekt2
             progressBar_mic.Value = sre.AudioLevel;
         }
 
-        //Ändrar ljudnivå på alla ljudklipp
+        /* Change audio level on audio clips depending on weather */
         public void SetWeather(Object obj, EventArgs args)
         {
-            //Temperature
-            if(temperature <= -5 + 273.15)
-            {
+            // Temperature (in degrees celsius)
+            if(temperature <= -5 + 273.15){
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > -5 + 273.15 && temperature <= 10 + 273.15)
-            {
+            else if(temperature > -5 + 273.15 && temperature <= 10 + 273.15){
                 birds.controls.play();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > 10 + 273.15 && temperature <= 20 + 273.15)
-            {
+            else if(temperature > 10 + 273.15 && temperature <= 20 + 273.15){
                 birds.controls.stop();
                 summerBee.controls.play();
                 beachCola.controls.stop();
                 jungle.controls.stop();
             }
-            else if(temperature > 20 + 273.15 && temperature <= 30 + 273.15)
-            {
+            else if(temperature > 20 + 273.15 && temperature <= 30 + 273.15){
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.play();
                 jungle.controls.stop();
             }
-            else //temp över 30
-            {
+            // temp over 30
+            else {
                 birds.controls.stop();
                 summerBee.controls.stop();
                 beachCola.controls.stop();
                 jungle.controls.play();
             }
 
-            //Rain
-            if(rainLevel >= 50 && rainLevel <= 80 && weatherDescription >= 500 && weatherDescription < 600)
-            {
+            // Rain
+            if(rainLevel >= 50 && rainLevel <= 80 && weatherDescription >= 500 && weatherDescription < 600){
                 lightRain.controls.play();
                 heavyRain.controls.stop();
             }
-            else if(rainLevel > 80 && weatherDescription >= 500 && weatherDescription < 600)
-            {
+            else if(rainLevel > 80 && weatherDescription >= 500 && weatherDescription < 600){
                 lightRain.controls.stop();
                 heavyRain.controls.play();
             }
-            else
-            {
+            else{
                 lightRain.controls.stop();
                 heavyRain.controls.stop();
             }
                
-            //Wind
-            if(windSpeed >= 3)
-            {
+            // Wind
+            if(windSpeed >= 3){
                 wind.controls.play();
                 wind.settings.volume = Convert.ToInt32(windSpeed + 0.2);
             }
-            else
-            {
+            else{
                 wind.controls.stop();
             }
             
-            //Thunder
-            if(weatherDescription >= 200 && weatherDescription < 300)
-            {
+            // Thunder
+            if(weatherDescription >= 200 && weatherDescription < 300){
                 thunder.controls.play();
             }
-            else
-            {
+            else{
                 thunder.controls.stop();
             }
 
             //Snow
             if (weatherDescription >= 600 && weatherDescription < 700 || temperature <= -10 + 273.15)
-            {
                 winter.controls.play();
-            }
             else
-            {
                 winter.controls.stop();
-            }
 
             var time = DateTime.Now;
-            if (time.Hour == 12 && time.Minute == 0 && time.Second == 0)
-            {
+            if (time.Hour == 12 && time.Minute == 0 && time.Second == 0){
                 using (var roosterPlayer = new SoundPlayer(Properties.Resources.Rooster))
-                {
                     roosterPlayer.Play();
-                }
             }
         }
 
@@ -297,8 +274,6 @@ namespace Projekt2
 
             else if (weatherDescription == 959 || weatherDescription == 960)
                 pictureBox_description.Image = Properties.Resources.storm;
-
         }
-
     }
 }
